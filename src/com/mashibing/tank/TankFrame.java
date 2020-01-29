@@ -44,6 +44,7 @@ public class TankFrame extends Frame{
 	class MyKeyListener extends KeyAdapter{
 
 		//用boolean表示按下的键,这样方向可以组合
+		//有可能同时按下上下键，但在计算机时有一个先后顺序的，即使看上去同时
 		boolean bL = false;
 		boolean bU = false;
 		boolean bR = false;
@@ -52,10 +53,6 @@ public class TankFrame extends Frame{
 		//键被按下时调用
 		@Override
 		public void keyPressed(KeyEvent e) {
-			//System.out.println("key pressed");
-			//只有x+=200；不会重画，因为没有调用paint
-			//x += 200;
-			//repaint();
 			int key = e.getKeyCode();
 			//这里不能斜着移动，因为switch一次改一次
 			switch (key) {
