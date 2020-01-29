@@ -2,6 +2,8 @@ package com.mashibing.tank;
 
 import java.awt.Frame;
 import java.awt.Graphics;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
@@ -14,6 +16,8 @@ public class TankFrame extends Frame{
 		setResizable(false);  //是否可以改变大小
 		setTitle("tank war");
 		setVisible(true);
+		
+		this.addKeyListener(new MyKeyListener());
 		
 		//添加监听器，现在监听着closing这件事
 		addWindowListener(new WindowAdapter() {
@@ -33,5 +37,23 @@ public class TankFrame extends Frame{
 		g.fillRect(x, y, 50, 50);
 		x+=10;
 		y+=10;
+	}
+	
+	
+	//定义一个监听键盘的类，使得通过按键使矩形移动
+	class MyKeyListener extends KeyAdapter{
+
+		//键被按下时调用
+		@Override
+		public void keyPressed(KeyEvent e) {
+			System.out.println("key pressed");
+		}
+
+		//键松开时调用
+		@Override
+		public void keyReleased(KeyEvent e) {
+			System.out.println("key released");
+		}
+		
 	}
 }
