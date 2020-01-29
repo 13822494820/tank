@@ -36,7 +36,7 @@ public class TankFrame extends Frame{
 		System.out.println("paint");
 		g.fillRect(x, y, 50, 50);
 		x+=10;
-		y+=10;
+		//y+=10;
 	}
 	
 	
@@ -46,13 +46,17 @@ public class TankFrame extends Frame{
 		//键被按下时调用
 		@Override
 		public void keyPressed(KeyEvent e) {
-			System.out.println("key pressed");
+			//System.out.println("key pressed");
+			//只有x+=200；不会重画，因为没有调用paint
+			//x += 200;
+			//repaint();
 		}
 
 		//键松开时调用
 		@Override
 		public void keyReleased(KeyEvent e) {
-			System.out.println("key released");
+			//System.out.println("key released");
+			
 		}
 		
 	}
