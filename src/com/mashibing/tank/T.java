@@ -11,21 +11,6 @@ import java.awt.event.WindowEvent;
  */
 public class T {
 	public static void main(String[] args) {
-		//窗体类
-		Frame f = new Frame();
-		f.setSize(800, 600);
-		f.setResizable(false);  //是否可以改变大小
-		f.setTitle("tank war");
-		f.setVisible(true);
-		
-		//添加监听器，现在监听着closing这件事
-		f.addWindowListener(new WindowAdapter() {
-
-			@Override
-			public void windowClosing(WindowEvent e) {
-				System.exit(0);
-			}
-			
-		});
+		TankFrame tf = new TankFrame();
 	}
 }
