@@ -18,11 +18,14 @@ public class Tank {
 	//判断是否移动，处理stop的状态
 	private boolean moving = false;
 	
-	public Tank(int x, int y, Dir dir) {
+	private TankFrame tf;
+	
+	public Tank(int x, int y, Dir dir, TankFrame tf) {
 		super();
 		this.x = x;
 		this.y = y;
 		this.dir = dir;
+		this.tf = tf;
 	}
 
 	public Dir getDir() {
@@ -72,6 +75,11 @@ public class Tank {
 		default:
 			break;
 		}
+	}
+
+	//fire可以reture子弹，但只能画一个子弹，不灵活
+	public void fire() {
+		tf.b = new Bullet(this.x,this.y,this.dir); 
 	}
 	
 	
