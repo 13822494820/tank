@@ -10,6 +10,7 @@ import java.awt.event.WindowEvent;
 //继承Frame
 public class TankFrame extends Frame{
 	Tank myTank = new Tank(200,200,Dir.DOWN);
+	Bullet b = new Bullet(300,300,Dir.DOWN);
 	
 	public TankFrame() {
 		setSize(800, 600);
@@ -34,6 +35,7 @@ public class TankFrame extends Frame{
 	@Override
 	public void paint(Graphics g) {	
 		myTank.paint(g);
+		b.paint(g);
 	}
 	
 	//定义一个监听键盘的类，使得通过按键使矩形移动
