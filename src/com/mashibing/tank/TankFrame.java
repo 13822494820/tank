@@ -1,7 +1,9 @@
 package com.mashibing.tank;
 
+import java.awt.Color;
 import java.awt.Frame;
 import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
@@ -11,9 +13,10 @@ import java.awt.event.WindowEvent;
 public class TankFrame extends Frame{
 	Tank myTank = new Tank(200,200,Dir.DOWN);
 	Bullet b = new Bullet(300,300,Dir.DOWN);
+	static final int GAME_WIDTH = 800, GAME_HEIGHT = 600;
 	
 	public TankFrame() {
-		setSize(800, 600);
+		setSize(GAME_WIDTH, GAME_HEIGHT);
 		setResizable(false);  //是否可以改变大小
 		setTitle("tank war");
 		setVisible(true);
@@ -29,6 +32,26 @@ public class TankFrame extends Frame{
 			}
 			
 		});
+	}
+	
+	/**
+	 * 双缓存解决闪烁
+	 * 闪烁是因为在显示大图时，部分图像还没计算完，
+	 * 有部分图像算完显示在屏幕上了
+	 * 解决：在内存定义同样大小的空间，先画在内存，画完再一次性画在屏幕上
+	 */
+	Image offScreenImage = null;   //定义一张图片，在内存
+	@Override
+	public void update(Graphics g) {  //g是屏幕的画笔
+		if(offScreenImage == null)
+			offScreenImage = this.createImage(GAME_WIDTH,GAME_HEIGHT);
+		Graphics gOffScreen = offScreenImage.getGraphics();   //获取画笔
+		Color c = gOffScreen.getColor();
+		gOffScreen.setColor(Color.BLACK);
+		gOffScreen.fillRect(0, 0, GAME_WIDTH, GAME_HEIGHT);   //重画背景
+		gOffScreen.setColor(c);
+		paint(gOffScreen);  //传递当前画笔，画在内存的
+		g.drawImage(offScreenImage,0,0,null);   //图片一次性画在屏幕
 	}
 	
 	//每次绘制会清空后再画，最小化再显示也会再绘制

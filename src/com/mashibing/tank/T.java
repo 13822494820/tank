@@ -15,7 +15,7 @@ public class T {
 		
 		while(true) {
 			Thread.sleep(50);
-			tf.repaint();
+			tf.repaint();  //repaint先调用update，再调用paint
 		}
 	}
 }
