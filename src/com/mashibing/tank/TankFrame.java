@@ -10,6 +10,9 @@ import java.awt.event.WindowEvent;
 //继承Frame
 public class TankFrame extends Frame{
 	int x=200,y=200;
+	//不应该被改变，是个常量
+	private static final int SPEED = 10;
+	Dir dir = Dir.DOWN;
 	
 	public TankFrame() {
 		setSize(800, 600);
@@ -33,12 +36,24 @@ public class TankFrame extends Frame{
 	//每次绘制会清空后再画，最小化再显示也会再绘制
 	@Override
 	public void paint(Graphics g) {
-		System.out.println("paint");
 		g.fillRect(x, y, 50, 50);
-		//x+=10;
-		//y+=10;
+		switch (dir) {
+		case LEFT:
+			x -= SPEED;
+			break;
+		case RIGHT:
+			x += SPEED;
+			break;
+		case UP:
+			y -= SPEED;
+			break;
+		case DOWN:
+			y += SPEED;
+			break;
+		default:
+			break;
+		}
 	}
-	
 	
 	//定义一个监听键盘的类，使得通过按键使矩形移动
 	class MyKeyListener extends KeyAdapter{
@@ -72,7 +87,8 @@ public class TankFrame extends Frame{
 			default:
 				break;
 			}
-			repaint();
+			
+			setMainTankDir();
 		}
 
 		//键松开时调用
@@ -98,6 +114,15 @@ public class TankFrame extends Frame{
 				break;
 			}
 			
+			setMainTankDir();
+		}
+
+		private void setMainTankDir() {
+			// TODO Auto-generated method stub
+			if(bL) dir = Dir.LEFT;
+			if(bU) dir = Dir.UP;
+			if(bR) dir = Dir.RIGHT;
+			if(bD) dir = Dir.DOWN;
 		}
 		
 	}
