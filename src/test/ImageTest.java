@@ -14,10 +14,12 @@ class ImageTest {
 
 	@Test
 	void test() {
-		BufferedImage image;
+		
 		try {
-			image = ImageIO.read(new File("D:\\обть\\н╒пем╪ф╛_20200112162328.jpg"));
+			BufferedImage image = ImageIO.read(new File("D:\\обть\\н╒пем╪ф╛_20200112162328.jpg"));
 			assertNotNull(image);
+			
+			BufferedImage image2 = ImageIO.read(ImageTest.class.getClassLoader().getResourceAsStream("images/bulletD.gif"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
