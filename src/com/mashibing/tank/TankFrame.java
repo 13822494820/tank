@@ -8,11 +8,14 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.ArrayList;
+import java.util.List;
 
 //继承Frame
 public class TankFrame extends Frame{
 	Tank myTank = new Tank(200,200,Dir.DOWN,this);
-	Bullet b = new Bullet(300,300,Dir.DOWN);
+	List<Bullet> bullets = new ArrayList<>();
+	Bullet b = new Bullet(300,300,Dir.DOWN,this);
 	static final int GAME_WIDTH = 800, GAME_HEIGHT = 600;
 	
 	public TankFrame() {
@@ -58,7 +61,14 @@ public class TankFrame extends Frame{
 	@Override
 	public void paint(Graphics g) {	
 		myTank.paint(g);
-		b.paint(g);
+		//list用这个不能删除，会出现java.util.ConcurrentModificationException
+		//因为内部状态不一致
+//		for(Bullet b: bullets) {
+//			b.paint(g);
+//		}
+		for(int i=0;i<bullets.size();i++) {
+			bullets.get(i).paint(g);
+		}
 	}
 	
 	//定义一个监听键盘的类，使得通过按键使矩形移动

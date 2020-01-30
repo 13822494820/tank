@@ -79,7 +79,7 @@ public class Tank {
 
 	//fire可以reture子弹，但只能画一个子弹，不灵活
 	public void fire() {
-		tf.b = new Bullet(this.x,this.y,this.dir); 
+		tf.bullets.add(new Bullet(this.x,this.y,this.dir,this.tf));
 	}
 	
 	

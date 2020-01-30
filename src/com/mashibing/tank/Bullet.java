@@ -4,19 +4,27 @@ import java.awt.Color;
 import java.awt.Graphics;
 
 public class Bullet {
-	private static final int SPEED = 5;
+	private static final int SPEED = 10;
 	private static int WIDTH = 35,HEIGHT = 35;
 	private int x, y;
 	private Dir dir;
+	private TankFrame tf;
 	
-	public Bullet(int x, int y, Dir dir) {
+	private boolean live = true;
+	
+	public Bullet(int x, int y, Dir dir, TankFrame tf) {
 		super();
 		this.x = x;
 		this.y = y;
 		this.dir = dir;
+		this.tf= tf;
 	}
 	
 	public void paint(Graphics g) {
+		if(!live) {
+			tf.bullets.remove(this);
+		}
+		
 		//获取原来的颜色
 		Color c =g.getColor();
 		g.setColor(Color.RED);
@@ -43,6 +51,9 @@ public class Bullet {
 		default:
 			break;
 		}
+		
+		if(x < 0 || y < 0 || x > TankFrame.GAME_WIDTH || y > TankFrame.GAME_HEIGHT)
+			live = false;
 	}
 	
 	
