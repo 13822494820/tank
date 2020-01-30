@@ -2,6 +2,7 @@ package com.mashibing.tank;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.util.Random;
 
 /**
  * 封装成一个tank类
@@ -16,6 +17,7 @@ public class Tank {
 	private int x,y;
 	private Dir dir = Dir.DOWN;
 	private static final int SPEED = 5;
+	private Group group = Group.BAD;
 	
 	//判断是否移动，处理stop的状态
 	private boolean moving = false;
@@ -24,13 +26,29 @@ public class Tank {
 	
 	private TankFrame tf;
 	
-	public Tank(int x, int y, Dir dir, TankFrame tf) {
+	private Random random = new Random();
+	
+	public Tank(int x, int y, Dir dir,Group group, TankFrame tf) {
 		super();
 		this.x = x;
 		this.y = y;
 		this.dir = dir;
+		this.group = group;
 		this.tf = tf;
 	}
+	
+
+	public Group getGroup() {
+		return group;
+	}
+
+
+
+	public void setGroup(Group group) {
+		this.group = group;
+	}
+
+
 
 	public Dir getDir() {
 		return dir;
@@ -112,13 +130,16 @@ public class Tank {
 		default:
 			break;
 		}
+		
+		if(random.nextInt(10) > 8)
+			this.fire();
 	}
 
 	//fire可以reture子弹，但只能画一个子弹，不灵活
 	public void fire() {
 		int bX = this.x + Tank.WIDTH/2 - Bullet.WIDTH;
 		int bY = this.y + Tank.HEIGHT/2 - Bullet.HEIGHT;
-		tf.bullets.add(new Bullet(bX,bY,this.dir,this.tf));
+		tf.bullets.add(new Bullet(bX,bY,this.dir,this.group, this.tf));
 	}
 
 	public void die() {
