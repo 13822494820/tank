@@ -9,10 +9,7 @@ import java.awt.event.WindowEvent;
 
 //继承Frame
 public class TankFrame extends Frame{
-	int x=200,y=200;
-	//不应该被改变，是个常量
-	private static final int SPEED = 10;
-	Dir dir = Dir.DOWN;
+	Tank myTank = new Tank(200,200,Dir.DOWN);
 	
 	public TankFrame() {
 		setSize(800, 600);
@@ -35,24 +32,8 @@ public class TankFrame extends Frame{
 	
 	//每次绘制会清空后再画，最小化再显示也会再绘制
 	@Override
-	public void paint(Graphics g) {
-		g.fillRect(x, y, 50, 50);
-		switch (dir) {
-		case LEFT:
-			x -= SPEED;
-			break;
-		case RIGHT:
-			x += SPEED;
-			break;
-		case UP:
-			y -= SPEED;
-			break;
-		case DOWN:
-			y += SPEED;
-			break;
-		default:
-			break;
-		}
+	public void paint(Graphics g) {	
+		myTank.paint(g);
 	}
 	
 	//定义一个监听键盘的类，使得通过按键使矩形移动
@@ -118,11 +99,10 @@ public class TankFrame extends Frame{
 		}
 
 		private void setMainTankDir() {
-			// TODO Auto-generated method stub
-			if(bL) dir = Dir.LEFT;
-			if(bU) dir = Dir.UP;
-			if(bR) dir = Dir.RIGHT;
-			if(bD) dir = Dir.DOWN;
+			if(bL) myTank.setDir(Dir.LEFT);
+			if(bU) myTank.setDir(Dir.UP);
+			if(bR) myTank.setDir(Dir.RIGHT);
+			if(bD) myTank.setDir(Dir.DOWN);
 		}
 		
 	}
