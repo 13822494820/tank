@@ -25,11 +25,22 @@ public class Bullet {
 			tf.bullets.remove(this);
 		}
 		
-		//获取原来的颜色
-		Color c =g.getColor();
-		g.setColor(Color.RED);
-		g.fillOval(x, y, WIDTH, HEIGHT);
-		g.setColor(c);
+		switch (dir) {
+		case LEFT:
+			g.drawImage(ResourceMgr.bulletL, x, y, null);
+			break;
+		case UP:
+			g.drawImage(ResourceMgr.bulletU, x, y, null);
+			break;
+		case RIGHT:
+			g.drawImage(ResourceMgr.bulletR, x, y, null);
+			break;
+		case DOWN:
+			g.drawImage(ResourceMgr.bulletD, x, y, null);
+			break;
+		default:
+			break;
+		}
 		
 		move();
 	}
