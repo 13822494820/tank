@@ -9,6 +9,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 //继承Frame
@@ -69,6 +70,13 @@ public class TankFrame extends Frame{
 		for(int i=0;i<bullets.size();i++) {
 			bullets.get(i).paint(g);
 		}
+		
+		//方法二
+//		for(Iterator<Bullet> it =bullets.iterator();it.hasNext();) {
+//			Bullet b = it.next();
+//			if(!b.live) 
+//				it.remove();
+//		}
 	}
 	
 	//定义一个监听键盘的类，使得通过按键使矩形移动

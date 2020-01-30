@@ -10,7 +10,7 @@ public class Bullet {
 	private Dir dir;
 	private TankFrame tf;
 	
-	private boolean live = true;
+    boolean live = true;
 	
 	public Bullet(int x, int y, Dir dir, TankFrame tf) {
 		super();
