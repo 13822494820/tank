@@ -13,6 +13,11 @@ public class T {
 	public static void main(String[] args) throws Exception {
 		TankFrame tf = new TankFrame();
 		
+		//初始化敌方tank
+		for(int i=0;i<5;i++) {
+			tf.tanks.add(new Tank(50 + i*80, 200, Dir.DOWN, tf));
+		}
+		
 		while(true) {
 			Thread.sleep(50);
 			tf.repaint();  //repaint先调用update，再调用paint
