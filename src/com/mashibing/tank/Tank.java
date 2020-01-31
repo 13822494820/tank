@@ -38,6 +38,26 @@ public class Tank {
 	}
 	
 
+	public static int getWIDTH() {
+		return WIDTH;
+	}
+
+
+	public static void setWIDTH(int wIDTH) {
+		WIDTH = wIDTH;
+	}
+
+
+	public static int getHEIGHT() {
+		return HEIGHT;
+	}
+
+
+	public static void setHEIGHT(int hEIGHT) {
+		HEIGHT = hEIGHT;
+	}
+
+
 	public Group getGroup() {
 		return group;
 	}
@@ -131,7 +151,7 @@ public class Tank {
 			break;
 		}
 		
-		if(random.nextInt(10) > 8)
+		if(this.group == Group.BAD && random.nextInt(10) > 8)
 			this.fire();
 	}
 

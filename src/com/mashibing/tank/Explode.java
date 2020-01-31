@@ -16,10 +16,11 @@ public class Explode {
     private int step = 0;
 	
 	public Explode(int x, int y, TankFrame tf) {
-		super();
 		this.x = x;
 		this.y = y;
 		this.tf= tf;
+		
+		//Audio.main(null);
 	}
 	
 	

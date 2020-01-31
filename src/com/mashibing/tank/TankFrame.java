@@ -95,6 +95,8 @@ public class TankFrame extends Frame{
 //			if(!b.live) 
 //				it.remove();
 //		}
+		
+		e.paint(g);
 	}
 	
 	//定义一个监听键盘的类，使得通过按键使矩形移动
@@ -126,8 +128,6 @@ public class TankFrame extends Frame{
 				bD = true;
 				break;
 
-			default:
-				break;
 			}
 			
 			setMainTankDir();
@@ -155,8 +155,6 @@ public class TankFrame extends Frame{
 				myTank.fire();
 				break;
 				
-			default:
-				break;
 			}
 			
 			setMainTankDir();

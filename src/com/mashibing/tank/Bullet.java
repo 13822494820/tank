@@ -87,7 +87,7 @@ public class Bullet {
 		
 		//可以用一个rect记录子弹位置
 		Rectangle rect1 = new Rectangle(this.x,this.y,WIDTH,HEIGHT);
-		Rectangle rect2 = new Rectangle(tank.getX(),tank.getY(),WIDTH,HEIGHT);
+		Rectangle rect2 = new Rectangle(tank.getX(),tank.getY(),tank.getWIDTH(),tank.getHEIGHT());
 		if(rect1.intersects(rect2)) {
 			tank.die();
 			this.die();

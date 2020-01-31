@@ -9,7 +9,7 @@ import java.awt.event.WindowEvent;
  * @author a123dsa1
  *
  */
-public class T {
+public class Main {
 	public static void main(String[] args) throws Exception {
 		TankFrame tf = new TankFrame();
 		
