@@ -2,6 +2,7 @@ package com.mashibing.tank;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Rectangle;
 import java.util.Random;
 
 /**
@@ -24,6 +25,8 @@ public class Tank {
 	
 	private boolean living = true;
 	
+	Rectangle rect = new Rectangle();
+	
 	private TankFrame tf;
 	
 	private Random random = new Random();
@@ -35,6 +38,11 @@ public class Tank {
 		this.dir = dir;
 		this.group = group;
 		this.tf = tf;
+		
+		rect.x = this.x;
+		rect.y = this.y;
+		rect.width = WIDTH;
+		rect.height = HEIGHT;
 	}
 	
 
@@ -158,6 +166,10 @@ public class Tank {
 			randomDir();
 		
 		boundsCheck();
+		
+		//update rect
+		rect.x =this.x;
+		rect.y =this.y;
 	}
 
 	private void boundsCheck() {

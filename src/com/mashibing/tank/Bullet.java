@@ -13,6 +13,8 @@ public class Bullet {
 	private TankFrame tf;
 	private Group group = Group.BAD;
 	
+	Rectangle rect = new Rectangle();
+	
     boolean living = true;
 	
 	public Bullet(int x, int y, Dir dir, Group group, TankFrame tf) {
@@ -22,6 +24,11 @@ public class Bullet {
 		this.dir = dir;
 		this.group = group;
 		this.tf= tf;
+		
+		rect.x = this.x;
+		rect.y = this.y;
+		rect.width = WIDTH;
+		rect.height = HEIGHT;
 	}
 	
 	public Group getGroup() {
@@ -77,6 +84,10 @@ public class Bullet {
 			break;
 		}
 		
+		//upadte rect 
+		rect.x = this.x;
+		rect.x = this.y;
+		
 		if(x < 0 || y < 0 || x > TankFrame.GAME_WIDTH || y > TankFrame.GAME_HEIGHT)
 			living = false;
 	}
@@ -85,10 +96,10 @@ public class Bullet {
 		if(this.group == tank.getGroup())
 			return;
 		
-		//可以用一个rect记录子弹位置
-		Rectangle rect1 = new Rectangle(this.x,this.y,WIDTH,HEIGHT);
-		Rectangle rect2 = new Rectangle(tank.getX(),tank.getY(),Tank.getWIDTH(),Tank.getHEIGHT());
-		if(rect1.intersects(rect2)) {
+		//可以用一个rect记录子弹位置,有内存溢出问题
+//		Rectangle rect1 = new Rectangle(this.x,this.y,WIDTH,HEIGHT);
+//		Rectangle rect2 = new Rectangle(tank.getX(),tank.getY(),Tank.getWIDTH(),Tank.getHEIGHT());
+		if(rect.intersects(tank.rect)) {
 			tank.die();
 			this.die();
 			
