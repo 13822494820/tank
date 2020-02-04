@@ -16,7 +16,7 @@ public class Tank {
 	public static int HEIGHT = ResourceMgr.tankU.getHeight();
 	private int x,y;
 	private Dir dir = Dir.DOWN;
-	private static final int SPEED = 5;
+	private static final int SPEED = 2;
 	private Group group = Group.BAD;
 	
 	//判断是否移动，处理stop的状态

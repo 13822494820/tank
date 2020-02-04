@@ -87,11 +87,14 @@ public class Bullet {
 		
 		//可以用一个rect记录子弹位置
 		Rectangle rect1 = new Rectangle(this.x,this.y,WIDTH,HEIGHT);
-		Rectangle rect2 = new Rectangle(tank.getX(),tank.getY(),tank.getWIDTH(),tank.getHEIGHT());
+		Rectangle rect2 = new Rectangle(tank.getX(),tank.getY(),Tank.getWIDTH(),Tank.getHEIGHT());
 		if(rect1.intersects(rect2)) {
 			tank.die();
 			this.die();
-			tf.explodes.add(new Explode(x, y, tf));
+			
+			int eX = tank.getX() + Tank.WIDTH/2 - Explode.WIDTH/2;
+			int eY = tank.getY() + Tank.HEIGHT/2 - Explode.HEIGHT/2;
+			tf.explodes.add(new Explode(eX, eY, tf));
 		}
 	}
 
