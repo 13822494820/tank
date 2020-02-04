@@ -6,8 +6,8 @@ import java.awt.Rectangle;
 
 public class Bullet {
 	private static final int SPEED = 10;
-	public static int WIDTH = ResourceMgr.bulletD.getWidth();
-	public static int HEIGHT = ResourceMgr.bulletD.getHeight();
+	public static int WIDTH = ResourceMgr.bulletU.getWidth();
+	public static int HEIGHT = ResourceMgr.bulletU.getHeight();
 	private int x, y;
 	private Dir dir;
 	private TankFrame tf;
@@ -91,6 +91,7 @@ public class Bullet {
 		if(rect1.intersects(rect2)) {
 			tank.die();
 			this.die();
+			tf.explodes.add(new Explode(x, y, tf));
 		}
 	}
 

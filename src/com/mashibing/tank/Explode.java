@@ -12,7 +12,7 @@ public class Explode {
 
 	private TankFrame tf = null;
 	
-    boolean living = true;
+    //boolean living = true;
     private int step = 0;
 	
 	public Explode(int x, int y, TankFrame tf) {
@@ -29,7 +29,7 @@ public class Explode {
 		
 		g.drawImage(ResourceMgr.explodes[step++], x ,y, null);
 		if(step >= ResourceMgr.explodes.length)
-			step = 0;
+			tf.explodes.remove(this);
 		
 	}
 	

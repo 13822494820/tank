@@ -19,7 +19,7 @@ public class Main {
 		}
 		
 		while(true) {
-			Thread.sleep(50);
+			Thread.sleep(25);
 			tf.repaint();  //repaint先调用update，再调用paint
 		}
 	}

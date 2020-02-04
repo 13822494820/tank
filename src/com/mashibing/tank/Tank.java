@@ -12,8 +12,8 @@ import java.util.Random;
  *
  */
 public class Tank {
-	public static int WIDTH = ResourceMgr.tankD.getWidth();
-	public static int HEIGHT = ResourceMgr.tankD.getHeight();
+	public static int WIDTH = ResourceMgr.tankU.getWidth();
+	public static int HEIGHT = ResourceMgr.tankU.getHeight();
 	private int x,y;
 	private Dir dir = Dir.DOWN;
 	private static final int SPEED = 5;
