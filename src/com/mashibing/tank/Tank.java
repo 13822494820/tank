@@ -27,12 +27,11 @@ public class Tank {
 	
 	Rectangle rect = new Rectangle();
 	
-	private TankFrame tf;
+	private TankFrame tf = null;
 	
 	private Random random = new Random();
 	
 	public Tank(int x, int y, Dir dir,Group group, TankFrame tf) {
-		super();
 		this.x = x;
 		this.y = y;
 		this.dir = dir;
@@ -135,10 +134,10 @@ public class Tank {
 			break;
 		}
 		
-		moving();
+		move();
 	}
 
-	private void moving() {
+	private void move() {
 		if(!moving)
 			return;
 		
@@ -191,9 +190,11 @@ public class Tank {
 
 	//fire可以reture子弹，但只能画一个子弹，不灵活
 	public void fire() {
-		int bX = this.x + Tank.WIDTH/2 - Bullet.WIDTH;
-		int bY = this.y + Tank.HEIGHT/2 - Bullet.HEIGHT;
+		int bX = this.x + Tank.WIDTH/2 - Bullet.WIDTH/2;
+		int bY = this.y + Tank.HEIGHT/2 - Bullet.HEIGHT/2;
 		tf.bullets.add(new Bullet(bX,bY,this.dir,this.group, this.tf));
+		
+		if(this.group == Group.GOOD) new Thread(()->new Audio("audio/tank_fire.wav").play()).start();
 	}
 
 	public void die() {

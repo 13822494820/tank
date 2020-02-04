@@ -18,8 +18,9 @@ public class Explode {
 		this.x = x;
 		this.y = y;
 		this.tf= tf;
-		
-		//Audio.main(null);
+
+		new Thread(()->new Audio("audio/explode.wav").play()).start();
+
 	}
 	
 	

@@ -63,7 +63,7 @@ public class TankFrame extends Frame{
 	@Override
 	public void paint(Graphics g) {	
 		Color c = g.getColor();
-		g.setColor(Color.white);
+		g.setColor(Color.WHITE);
 		g.drawString("子弹的数量" + bullets.size(), 10, 60);
 		g.drawString("敌人的数量" + tanks.size(), 10, 80);
 		g.drawString("爆炸的数量" + explodes.size(), 10, 100);
@@ -78,10 +78,18 @@ public class TankFrame extends Frame{
 //		}
 		for(int i=0;i<bullets.size();i++) {
 			bullets.get(i).paint(g);
+//			if(bullets.get(i).getGroup()==Group.GOOD)
+//				System.out.println(bullets.get(i).rect);
 		}
 		
+		
+		//System.out.println(myTank.rect);
 		for(int i=0;i<tanks.size();i++) {
 			tanks.get(i).paint(g);
+		}
+		
+		for(int i=0;i<explodes.size();i++) {
+			explodes.get(i).paint(g);
 		}
 		
 		for (int i = 0; i < bullets.size(); i++) {
@@ -96,10 +104,6 @@ public class TankFrame extends Frame{
 //			if(!b.live) 
 //				it.remove();
 //		}
-		
-		for(int i=0;i<explodes.size();i++) {
-			explodes.get(i).paint(g);
-		}
 	}
 	
 	//定义一个监听键盘的类，使得通过按键使矩形移动
@@ -134,6 +138,7 @@ public class TankFrame extends Frame{
 			}
 			
 			setMainTankDir();
+			new Thread(()->new Audio("audio/tank_move.wav").play()).start();
 		}
 
 		//键松开时调用

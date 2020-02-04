@@ -5,12 +5,12 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 
 public class Bullet {
-	private static final int SPEED = 10;
-	public static int WIDTH = ResourceMgr.bulletU.getWidth();
-	public static int HEIGHT = ResourceMgr.bulletU.getHeight();
+	private static final int SPEED = 6;
+	public static int WIDTH = ResourceMgr.bulletD.getWidth();
+	public static int HEIGHT = ResourceMgr.bulletD.getHeight();
 	private int x, y;
 	private Dir dir;
-	private TankFrame tf;
+	TankFrame tf = null;
 	private Group group = Group.BAD;
 	
 	Rectangle rect = new Rectangle();
@@ -18,7 +18,6 @@ public class Bullet {
     boolean living = true;
 	
 	public Bullet(int x, int y, Dir dir, Group group, TankFrame tf) {
-		super();
 		this.x = x;
 		this.y = y;
 		this.dir = dir;
@@ -80,13 +79,12 @@ public class Bullet {
 		case DOWN:
 			y += SPEED;
 			break;
-		default:
-			break;
+
 		}
 		
-		//upadte rect 
+		//update rect 
 		rect.x = this.x;
-		rect.x = this.y;
+		rect.y = this.y;
 		
 		if(x < 0 || y < 0 || x > TankFrame.GAME_WIDTH || y > TankFrame.GAME_HEIGHT)
 			living = false;
