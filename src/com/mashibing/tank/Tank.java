@@ -20,7 +20,7 @@ public class Tank {
 	private Group group = Group.BAD;
 	
 	//判断是否移动，处理stop的状态
-	private boolean moving = false;
+	private boolean moving = true;
 	
 	private boolean living = true;
 	
@@ -151,9 +151,17 @@ public class Tank {
 			break;
 		}
 		
-		if(this.group == Group.BAD && random.nextInt(10) > 8)
+		if(this.group == Group.BAD && random.nextInt(100) > 95)
 			this.fire();
+		
+		if(this.group == Group.BAD && random.nextInt(100) > 95)
+			randomDir();
 	}
+
+	private void randomDir() {
+		this.dir = Dir.values()[random.nextInt(4)];
+	}
+
 
 	//fire可以reture子弹，但只能画一个子弹，不灵活
 	public void fire() {
