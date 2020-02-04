@@ -18,12 +18,12 @@ public class ResourceMgr {
 	public static BufferedImage[] explodes = new BufferedImage[16];
 	static {
 		try {
-			goodtankU = ImageIO.read(ResourceMgr.class.getClassLoader().getResourceAsStream("images/BadTank1.png"));
+			goodtankU = ImageIO.read(ResourceMgr.class.getClassLoader().getResourceAsStream("images/GoodTank1.png"));
 			goodtankL = ImageUtil.rotateImage(goodtankU, -90);
 			goodtankR = ImageUtil.rotateImage(goodtankU, 90);
 			goodtankD = ImageUtil.rotateImage(goodtankU, 180);
 			
-			badtankU = ImageIO.read(ResourceMgr.class.getClassLoader().getResourceAsStream("images/GoodTank1.png"));
+			badtankU = ImageIO.read(ResourceMgr.class.getClassLoader().getResourceAsStream("images/BadTank1.png"));
 			badtankL = ImageUtil.rotateImage(badtankU, -90);
 			badtankR = ImageUtil.rotateImage(badtankU, 90);
 			badtankD = ImageUtil.rotateImage(badtankU, 180);
