@@ -4,7 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 
-public class Bullet {
+public class Bullet extends GameObject{
 	private static final int SPEED = 6;
 	public static int WIDTH = ResourceMgr.bulletD.getWidth();
 	public static int HEIGHT = ResourceMgr.bulletD.getHeight();
@@ -42,7 +42,7 @@ public class Bullet {
 
 	public void paint(Graphics g) {
 		if(!living) {
-			gm.bullets.remove(this);
+			gm.remove(this);
 		}
 		
 		switch (dir) {
@@ -90,9 +90,9 @@ public class Bullet {
 			living = false;
 	}
 
-	public void collideWith(Tank tank) {
+	public boolean collideWith(Tank tank) {
 		if(this.group == tank.getGroup())
-			return;
+			return false;
 		
 		//可以用一个rect记录子弹位置,有内存溢出问题
 //		Rectangle rect1 = new Rectangle(this.x,this.y,WIDTH,HEIGHT);
@@ -103,8 +103,10 @@ public class Bullet {
 			
 			int eX = tank.getX() + Tank.WIDTH/2 - Explode.WIDTH/2;
 			int eY = tank.getY() + Tank.HEIGHT/2 - Explode.HEIGHT/2;
-			gm.explodes.add(new Explode(eX, eY, gm));
+			gm.add(new Explode(eX, eY, gm));
+			return true;
 		}
+		return false;
 	}
 
 	private void die() {

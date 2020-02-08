@@ -4,7 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 
-public class Explode {
+public class Explode extends GameObject{
 	public static int WIDTH = ResourceMgr.explodes[0].getWidth();
 	public static int HEIGHT = ResourceMgr.explodes[0].getHeight();
 	private int x, y;
@@ -29,7 +29,7 @@ public class Explode {
 		
 		g.drawImage(ResourceMgr.explodes[step++], x, y, null);
 		if(step >= ResourceMgr.explodes.length)
-			gm.explodes.remove(this);
+			gm.remove(this);
 		
 	}
 	

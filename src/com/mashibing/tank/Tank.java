@@ -12,10 +12,11 @@ import java.util.Random;
  * @author a123dsa1
  *
  */
-public class Tank {
+public class Tank extends GameObject{
 	public static int WIDTH = ResourceMgr.goodtankU.getWidth();
 	public static int HEIGHT = ResourceMgr.goodtankU.getHeight();
 	private int x,y;
+	//int oldx;
 	private Dir dir = Dir.DOWN;
 	private static final int SPEED = 2;
 	private Group group = Group.BAD;
@@ -44,6 +45,13 @@ public class Tank {
 		rect.height = HEIGHT;
 	}
 	
+	
+
+	public Rectangle getRect() {
+		return rect;
+	}
+
+
 
 	public static int getWIDTH() {
 		return WIDTH;
@@ -115,7 +123,7 @@ public class Tank {
 
 	public void paint(Graphics g) {
 		if(!living)
-			gm.tanks.remove(this);
+			gm.remove(this);
 		
 		switch (dir) {
 		case LEFT:
@@ -192,7 +200,7 @@ public class Tank {
 	public void fire() {
 		int bX = this.x + Tank.WIDTH/2 - Bullet.WIDTH/2;
 		int bY = this.y + Tank.HEIGHT/2 - Bullet.HEIGHT/2;
-		gm.bullets.add(new Bullet(bX,bY,this.dir,this.group, this.gm));
+		gm.add(new Bullet(bX,bY,this.dir,this.group, this.gm));
 		
 		if(this.group == Group.GOOD) new Thread(()->new Audio("audio/tank_fire.wav").play()).start();
 	}
@@ -200,6 +208,10 @@ public class Tank {
 	public void die() {
 		this.living = false;
 		
+	}
+
+	public void stop() {
+		moving = false;
 	}
 	
 	

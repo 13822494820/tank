@@ -4,3 +4,5 @@ tankSpeed=5
 bulletSpeed=10
 gameWidth=1080
 gameHeight=720
+#colliders,这样以后添加新的游戏物体时，可以不用修改原来碰撞代码
+colliders=com.mashibing.tank.cor.BulletTankCollier,com.mashibing.tank.cor.TankTankCollier
