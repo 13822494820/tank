@@ -14,11 +14,11 @@ import java.util.List;
 
 //继承Frame
 public class TankFrame extends Frame{
-	Tank myTank = new Tank(200,400,Dir.DOWN,Group.GOOD,this);
-	List<Bullet> bullets = new ArrayList<>();
-	List<Tank> tanks = new ArrayList<>();
-	List<Explode> explodes = new ArrayList<>();
+	GameModel gm = new GameModel();
+	
 	static final int GAME_WIDTH = 1080, GAME_HEIGHT = 960;
+	
+	
 	
 	public TankFrame() {
 		setSize(GAME_WIDTH, GAME_HEIGHT);
@@ -62,48 +62,8 @@ public class TankFrame extends Frame{
 	//每次绘制会清空后再画，最小化再显示也会再绘制
 	@Override
 	public void paint(Graphics g) {	
-		Color c = g.getColor();
-		g.setColor(Color.WHITE);
-		g.drawString("子弹的数量" + bullets.size(), 10, 60);
-		g.drawString("敌人的数量" + tanks.size(), 10, 80);
-		g.drawString("爆炸的数量" + explodes.size(), 10, 100);
-		g.setColor(c);
-		
-		myTank.paint(g);
-		
-		//list用这个不能删除，会出现java.util.ConcurrentModificationException
-		//因为内部状态不一致
-//		for(Bullet b: bullets) {
-//			b.paint(g);
-//		}
-		for(int i=0;i<bullets.size();i++) {
-			bullets.get(i).paint(g);
-//			if(bullets.get(i).getGroup()==Group.GOOD)
-//				System.out.println(bullets.get(i).rect);
-		}
-		
-		
-		//System.out.println(myTank.rect);
-		for(int i=0;i<tanks.size();i++) {
-			tanks.get(i).paint(g);
-		}
-		
-		for(int i=0;i<explodes.size();i++) {
-			explodes.get(i).paint(g);
-		}
-		
-		for (int i = 0; i < bullets.size(); i++) {
-			for(int j=0;j<tanks.size();j++) {
-				bullets.get(i).collideWith(tanks.get(j));
-			}
-		}
-		
-		//方法二
-//		for(Iterator<Bullet> it =bullets.iterator();it.hasNext();) {
-//			Bullet b = it.next();
-//			if(!b.live) 
-//				it.remove();
-//		}
+		gm.paint(g);
+	
 	}
 	
 	//定义一个监听键盘的类，使得通过按键使矩形移动
@@ -160,7 +120,7 @@ public class TankFrame extends Frame{
 				bD = false;
 				break;
 			case KeyEvent.VK_CONTROL:
-				myTank.fire();
+				gm.getMainTank().fire();
 				break;
 				
 			}
@@ -170,13 +130,13 @@ public class TankFrame extends Frame{
 
 		private void setMainTankDir() {
 			if(!bL && !bU &&!bR && !bD)
-				myTank.setMoving(false);
+				gm.getMainTank().setMoving(false);
 			else
-				myTank.setMoving(true);
-			if(bL) myTank.setDir(Dir.LEFT);
-			if(bU) myTank.setDir(Dir.UP);
-			if(bR) myTank.setDir(Dir.RIGHT);
-			if(bD) myTank.setDir(Dir.DOWN);
+				gm.getMainTank().setMoving(true);
+			if(bL) gm.getMainTank().setDir(Dir.LEFT);
+			if(bU) gm.getMainTank().setDir(Dir.UP);
+			if(bR) gm.getMainTank().setDir(Dir.RIGHT);
+			if(bD) gm.getMainTank().setDir(Dir.DOWN);
 		}
 		
 	}
