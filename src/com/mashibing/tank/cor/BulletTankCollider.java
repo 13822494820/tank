@@ -1,6 +1,8 @@
 package com.mashibing.tank.cor;
 
 import com.mashibing.tank.Bullet;
+import com.mashibing.tank.Explode;
+import com.mashibing.tank.GameModel;
 import com.mashibing.tank.GameObject;
 import com.mashibing.tank.Tank;
 
@@ -14,8 +16,15 @@ public class BulletTankCollider implements Collider {
 				Bullet b = (Bullet)o1;
 				Tank t = (Tank)o2;
 				//TODO copy code method collideWith
-				if(b.collideWith(t))
-					return false;
+				if(b.rect.intersects(t.rect)) {
+					b.die();
+					t.die();
+					
+					int eX = t.getX() + Tank.WIDTH/2 - Explode.WIDTH/2;
+					int eY = t.getY() + Tank.HEIGHT/2 - Explode.HEIGHT/2;
+					new Explode(eX, eY);
+					return true;
+				}
 		}
 		else if(o1 instanceof Tank && o2 instanceof Bullet) {
 			//调用自己

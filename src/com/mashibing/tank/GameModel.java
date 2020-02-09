@@ -11,8 +11,14 @@ import com.mashibing.tank.cor.ColliderChain;
 import com.mashibing.tank.cor.TankTankCollider;
 
 public class GameModel {
+	
+	private static final GameModel INSTANCE = new GameModel();	
 
-	Tank myTank = new Tank(200,400,Dir.DOWN,Group.GOOD,this);
+	static {
+		INSTANCE.init();
+	}
+	
+	Tank myTank ;
 //	List<Bullet> bullets = new ArrayList<>();
 //	List<Tank> tanks = new ArrayList<>();
 //	List<Explode> explodes = new ArrayList<>();
@@ -21,14 +27,30 @@ public class GameModel {
 //	Collider collider2 = new TankTankCollider();
 	
 	private List<GameObject> objects = new ArrayList<>();
+
+	private GameModel() {
+		
+	}
 	
-	public GameModel() {
+	private void init() {
+		myTank = new Tank(200,400,Dir.DOWN,Group.GOOD);
+		
 		int initTankCount = Integer.parseInt((String)PropertyMgr.get("initTankCount"));
 
 		//初始化敌方tank
 		for(int i=0;i<initTankCount;i++) {
-			objects.add(new Tank(50 + i*100, 200, Dir.DOWN,Group.BAD, this));
+			new Tank(50 + i*100, 200, Dir.DOWN,Group.BAD);
 		}
+		
+		//初始化墙
+		add(new Wall(150, 150, 200, 50));
+		add(new Wall(550, 150, 200, 50));
+		add(new Wall(300, 300, 50, 200));
+		add(new Wall(550, 300, 50, 200));
+	}
+	
+	public static GameModel getInstance() {
+		return INSTANCE;
 	}
 	
 	public void add(GameObject go) {

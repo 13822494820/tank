@@ -5,6 +5,9 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.util.Random;
 
+import com.mashibing.tank.decorator.RectDecorator;
+import com.mashibing.tank.decorator.TailDecorator;
+
 /**
  * 封装成一个tank类
  * 因为可能需要多个tank操作，这时只有tankFrame的x，y是不够的，只会越来越多代码
@@ -15,8 +18,7 @@ import java.util.Random;
 public class Tank extends GameObject{
 	public static int WIDTH = ResourceMgr.goodtankU.getWidth();
 	public static int HEIGHT = ResourceMgr.goodtankU.getHeight();
-	private int x,y;
-	//int oldx;
+	int oldx, oldy;
 	private Dir dir = Dir.DOWN;
 	private static final int SPEED = 2;
 	private Group group = Group.BAD;
@@ -26,26 +28,34 @@ public class Tank extends GameObject{
 	
 	private boolean living = true;
 	
-	Rectangle rect = new Rectangle();
+	public Rectangle rect = new Rectangle();
 	
 	private Random random = new Random();
 	
-	GameModel gm;
 	
-	public Tank(int x, int y, Dir dir,Group group, GameModel gm) {
+	public Tank(int x, int y, Dir dir,Group group) {
 		this.x = x;
 		this.y = y;
 		this.dir = dir;
 		this.group = group;
-		this.gm = gm;
 		
 		rect.x = this.x;
 		rect.y = this.y;
 		rect.width = WIDTH;
 		rect.height = HEIGHT;
+		
+		GameModel.getInstance().add(this);
 	}
 	
-	
+	@Override
+	public int getWidth() {
+		return WIDTH;
+	}
+
+	@Override
+	public int getHeight() {
+		return HEIGHT;
+	}
 
 	public Rectangle getRect() {
 		return rect;
@@ -123,7 +133,7 @@ public class Tank extends GameObject{
 
 	public void paint(Graphics g) {
 		if(!living)
-			gm.remove(this);
+			GameModel.getInstance().remove(this);
 		
 		switch (dir) {
 		case LEFT:
@@ -146,6 +156,8 @@ public class Tank extends GameObject{
 	}
 
 	private void move() {
+		oldx = x;
+		oldy = y;
 		if(!moving)
 			return;
 		
@@ -200,7 +212,11 @@ public class Tank extends GameObject{
 	public void fire() {
 		int bX = this.x + Tank.WIDTH/2 - Bullet.WIDTH/2;
 		int bY = this.y + Tank.HEIGHT/2 - Bullet.HEIGHT/2;
-		gm.add(new Bullet(bX,bY,this.dir,this.group, this.gm));
+		new Bullet(bX,bY,this.dir,this.group);
+		//有bug new Bullet把自己加了一遍	 
+//		GameModel.getInstance().add(new RectDecorator(
+//				new TailDecorator(
+//				new Bullet(bX,bY,this.dir,this.group))));
 		
 		if(this.group == Group.GOOD) new Thread(()->new Audio("audio/tank_fire.wav").play()).start();
 	}
@@ -212,6 +228,11 @@ public class Tank extends GameObject{
 
 	public void stop() {
 		moving = false;
+	}
+	
+	public void back() {
+		x= oldx;
+		y = oldy;
 	}
 	
 	

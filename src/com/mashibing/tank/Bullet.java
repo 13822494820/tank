@@ -8,28 +8,44 @@ public class Bullet extends GameObject{
 	private static final int SPEED = 6;
 	public static int WIDTH = ResourceMgr.bulletD.getWidth();
 	public static int HEIGHT = ResourceMgr.bulletD.getHeight();
-	private int x, y;
 	private Dir dir;
-	GameModel gm = null;
 	private Group group = Group.BAD;
 	
-	Rectangle rect = new Rectangle();
+	public Rectangle rect = new Rectangle();
 	
     boolean living = true;
 	
-	public Bullet(int x, int y, Dir dir, Group group, GameModel gm) {
+	public Bullet(int x, int y, Dir dir, Group group) {
 		this.x = x;
 		this.y = y;
 		this.dir = dir;
 		this.group = group;
-		this.gm= gm;
 		
 		rect.x = this.x;
 		rect.y = this.y;
 		rect.width = WIDTH;
 		rect.height = HEIGHT;
+		
+		GameModel.getInstance().add(this);
+		
 	}
 	
+	
+	
+	@Override
+	public int getWidth() {
+		return WIDTH;
+	}
+
+
+
+	@Override
+	public int getHeight() {
+		return HEIGHT;
+	}
+
+
+
 	public Group getGroup() {
 		return group;
 	}
@@ -42,7 +58,7 @@ public class Bullet extends GameObject{
 
 	public void paint(Graphics g) {
 		if(!living) {
-			gm.remove(this);
+			GameModel.getInstance().remove(this);
 		}
 		
 		switch (dir) {
@@ -90,26 +106,7 @@ public class Bullet extends GameObject{
 			living = false;
 	}
 
-	public boolean collideWith(Tank tank) {
-		if(this.group == tank.getGroup())
-			return false;
-		
-		//可以用一个rect记录子弹位置,有内存溢出问题
-//		Rectangle rect1 = new Rectangle(this.x,this.y,WIDTH,HEIGHT);
-//		Rectangle rect2 = new Rectangle(tank.getX(),tank.getY(),Tank.getWIDTH(),Tank.getHEIGHT());
-		if(rect.intersects(tank.rect)) {
-			tank.die();
-			this.die();
-			
-			int eX = tank.getX() + Tank.WIDTH/2 - Explode.WIDTH/2;
-			int eY = tank.getY() + Tank.HEIGHT/2 - Explode.HEIGHT/2;
-			gm.add(new Explode(eX, eY, gm));
-			return true;
-		}
-		return false;
-	}
-
-	private void die() {
+	public void die() {
 		this.living = false;
 	}
 	
