@@ -22,9 +22,9 @@ public class GameModel {
 //	List<Bullet> bullets = new ArrayList<>();
 //	List<Tank> tanks = new ArrayList<>();
 //	List<Explode> explodes = new ArrayList<>();
-	ColliderChain chain = new ColliderChain();
 //	Collider collider = new BulletTankCollider();
 //	Collider collider2 = new TankTankCollider();
+	ColliderChain chain = new ColliderChain();
 	
 	private List<GameObject> objects = new ArrayList<>();
 
@@ -39,7 +39,7 @@ public class GameModel {
 
 		//初始化敌方tank
 		for(int i=0;i<initTankCount;i++) {
-			new Tank(50 + i*100, 200, Dir.DOWN,Group.BAD);
+			new Tank(50 + i*80, 200, Dir.DOWN,Group.BAD);
 		}
 		
 		//初始化墙
@@ -58,7 +58,7 @@ public class GameModel {
 	}
 	
 	public void remove(GameObject go) {
-		this.objects.remove(this);
+		this.objects.remove(go);
 	}
 	
 	public void paint(Graphics g) {

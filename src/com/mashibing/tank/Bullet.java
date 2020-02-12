@@ -9,7 +9,7 @@ public class Bullet extends GameObject{
 	public static int WIDTH = ResourceMgr.bulletD.getWidth();
 	public static int HEIGHT = ResourceMgr.bulletD.getHeight();
 	private Dir dir;
-	private Group group = Group.BAD;
+	public  Group group = Group.BAD;
 	
 	public Rectangle rect = new Rectangle();
 	

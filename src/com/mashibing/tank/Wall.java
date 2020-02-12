@@ -17,7 +17,7 @@ public class Wall extends GameObject {
 		this.w = w;
 		this.h = h;
 		
-		this.rect = new Rectangle();
+		this.rect = new Rectangle(x, y, w, h);
 	}
 
 	@Override

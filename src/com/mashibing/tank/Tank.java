@@ -3,10 +3,16 @@ package com.mashibing.tank;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import com.mashibing.tank.decorator.RectDecorator;
 import com.mashibing.tank.decorator.TailDecorator;
+
+import observer.TankFireEvent;
+import observer.TankFireHandler;
+import observer.TankFireObserver;
 
 /**
  * 封装成一个tank类
@@ -45,6 +51,7 @@ public class Tank extends GameObject{
 		rect.height = HEIGHT;
 		
 		GameModel.getInstance().add(this);
+		
 	}
 	
 	@Override
@@ -233,6 +240,18 @@ public class Tank extends GameObject{
 	public void back() {
 		x= oldx;
 		y = oldy;
+	}
+
+	List<TankFireObserver> fireObservers = new ArrayList<>();
+	
+	public void handleFireKey() {
+		System.out.println(fireObservers.size());
+		//添加观察者
+		//fireObservers.add(new TankFireHandler());
+		TankFireEvent event = new TankFireEvent(this);
+		for(TankFireObserver o : fireObservers) {
+			o.actionOnFire(event);
+		}
 	}
 	
 	

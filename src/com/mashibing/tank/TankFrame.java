@@ -67,6 +67,9 @@ public class TankFrame extends Frame{
 	}
 	
 	//定义一个监听键盘的类，使得通过按键使矩形移动
+	//一个观察者，因为这个观察者类在事件源类中
+	//所以不需要传事件源对象，如果定义在类之外
+	//需要传入事件源对象，在刷新等操作中需要事件源
 	class MyKeyListener extends KeyAdapter{
 
 		//用boolean表示按下的键,这样方向可以组合
@@ -121,7 +124,9 @@ public class TankFrame extends Frame{
 				break;
 			case KeyEvent.VK_CONTROL:
 				gm.getMainTank().fire();
+				//gm.getMainTank().handleFireKey();
 				break;
+			default:break;
 				
 			}
 			

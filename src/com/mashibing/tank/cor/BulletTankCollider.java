@@ -16,6 +16,8 @@ public class BulletTankCollider implements Collider {
 				Bullet b = (Bullet)o1;
 				Tank t = (Tank)o2;
 				//TODO copy code method collideWith
+				if(b.group == t.getGroup())
+					return true;
 				if(b.rect.intersects(t.rect)) {
 					b.die();
 					t.die();
@@ -23,7 +25,7 @@ public class BulletTankCollider implements Collider {
 					int eX = t.getX() + Tank.WIDTH/2 - Explode.WIDTH/2;
 					int eY = t.getY() + Tank.HEIGHT/2 - Explode.HEIGHT/2;
 					new Explode(eX, eY);
-					return true;
+					return false;
 				}
 		}
 		else if(o1 instanceof Tank && o2 instanceof Bullet) {
