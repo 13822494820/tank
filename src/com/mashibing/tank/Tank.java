@@ -4,6 +4,9 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.util.Random;
+import java.util.UUID;
+
+import com.mashibing.tank.net.TankJoinMsg;
 
 /**
  * 封装成一个tank类
@@ -19,6 +22,9 @@ public class Tank {
 	private Dir dir = Dir.DOWN;
 	private static final int SPEED = 2;
 	private Group group = Group.BAD;
+	
+	UUID id = UUID.randomUUID();
+	
 	
 	//判断是否移动，处理stop的状态
 	private boolean moving = true;
@@ -44,6 +50,28 @@ public class Tank {
 		rect.height = HEIGHT;
 	}
 	
+	public Tank(TankJoinMsg msg) {
+		this.x = msg.x;
+		this.y = msg.y;
+		this.dir = msg.dir;
+		this.moving = msg.moving;
+		this.group = msg.group;
+		this.id = msg.id;
+	}
+	
+	
+
+	public UUID getId() {
+		return id;
+	}
+
+
+
+	public void setId(UUID id) {
+		this.id = id;
+	}
+
+
 
 	public static int getWIDTH() {
 		return WIDTH;
@@ -116,6 +144,12 @@ public class Tank {
 	public void paint(Graphics g) {
 		if(!living)
 			tf.tanks.remove(this);
+		
+		//uuid on head
+		Color c = g.getColor();
+		g.setColor(Color.YELLOW);
+		g.drawString(id.toString(), this.x, this.y - 10);
+		g.setColor(c);
 		
 		switch (dir) {
 		case LEFT:

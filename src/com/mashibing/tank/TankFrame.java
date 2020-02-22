@@ -9,14 +9,24 @@ import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.Random;
+import java.util.UUID;
 
 //继承Frame
 public class TankFrame extends Frame{
-	Tank myTank = new Tank(200,400,Dir.DOWN,Group.GOOD,this);
+	public static final TankFrame INSTANCE = new TankFrame(); 
+	
+	Random random = new Random();
+	
+	Tank myTank = new Tank(random.nextInt(GAME_WIDTH),random.nextInt(GAME_HEIGHT),Dir.DOWN,Group.GOOD,this);
 	List<Bullet> bullets = new ArrayList<>();
-	List<Tank> tanks = new ArrayList<>();
+	//List<Tank> tanks = new ArrayList<>();
+	//找tank时快点，hash操作就找到，不用遍历
+	Map<UUID,Tank> tanks = new HashMap<>();
 	List<Explode> explodes = new ArrayList<>();
 	static final int GAME_WIDTH = 1080, GAME_HEIGHT = 960;
 	
@@ -24,7 +34,7 @@ public class TankFrame extends Frame{
 		setSize(GAME_WIDTH, GAME_HEIGHT);
 		setResizable(false);  //是否可以改变大小
 		setTitle("tank war");
-		setVisible(true);
+		//setVisible(true);
 		
 		this.addKeyListener(new MyKeyListener());
 		
@@ -37,6 +47,18 @@ public class TankFrame extends Frame{
 			}
 			
 		});
+	}
+	
+	public Tank getMainTank() {
+		return myTank;
+	}
+	
+	public void addTank(Tank t) {
+		tanks.put(t.getId(), t);
+	}
+	
+	public Tank findByUUID(UUID id) {
+		return tanks.get(id);
 	}
 	
 	/**
@@ -84,9 +106,11 @@ public class TankFrame extends Frame{
 		
 		
 		//System.out.println(myTank.rect);
-		for(int i=0;i<tanks.size();i++) {
-			tanks.get(i).paint(g);
-		}
+//		for(int i=0;i<tanks.size();i++) {
+//			tanks.get(i).paint(g);
+//		}
+		//java8 stream的api
+		tanks.values().stream().forEach((e)->e.paint(g));
 		
 		for(int i=0;i<explodes.size();i++) {
 			explodes.get(i).paint(g);
