@@ -81,8 +81,8 @@ class ClientChannelInitializer extends ChannelInitializer<SocketChannel> {
 		ch.pipeline()
 			//写走encoder，读走decoder，netty帮我们判断要不要执行
 			//多个encoder需要顺序
-			.addLast(new TankJoinMsgEncoder())
-			.addLast(new TankJoinMsgDecoder())
+			.addLast(new MsgEncoder())
+			.addLast(new MsgDecoder())
 			.addLast(new ClientHandler());
 	}
 

@@ -145,7 +145,6 @@ public class TankJoinMsg extends Msg{
 
 	@Override
 	public MsgType getMsgType() {
-		// TODO Auto-generated method stub
 		return MsgType.TankJoin;
 	}
 
